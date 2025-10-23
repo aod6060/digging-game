@@ -329,4 +329,19 @@ namespace input {
     bool isKeyReleasedOnce(Keyboard key);
 }
 
+
+// Render
+namespace render {
+
+    void init();
+    void release();
+    void clear(const glm::vec4& color);
+    void bind();
+    void unbind();
+    void setProjection(const glm::mat4& m);
+    void setView(const glm::mat4& m);
+    void setModel(const glm::mat4& m);
+    void draw();
+};
+
 #endif

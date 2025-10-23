@@ -36,6 +36,7 @@ namespace app {
 
         // Initing input
         input::init();
+        render::init();
 
         // Call game init function
         if(g_config->initCB) {
@@ -92,8 +93,9 @@ namespace app {
             g_config->releaseCB();
         }
 
+        render::release();
         input::release();
-        
+
         SDL_GL_DeleteContext(g_context);
         SDL_DestroyWindow(g_window);
         SDL_Quit();

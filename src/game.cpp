@@ -1,4 +1,5 @@
 #include "game.hpp"
+#include "glm/ext/matrix_transform.hpp"
 #include "sys.hpp"
 
 
@@ -15,17 +16,24 @@ namespace game {
     }
 
     void update(float delta) {
-        //std::cout << "Delta: " << delta << "\n";
-
-        if(input::isKeyReleasedOnce(input::Keyboard::KB_LEFT)) {
-            std::cout << test << "> Left Key State\n";
-            test += 1;
-        }
+        //std::cout << "Delta: " << delta << "\n"
     }
 
     void render() {
-        glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+
+        render::clear(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+        render::bind();
+
+        render::setProjection(glm::ortho(0.0f, app::getWidthFloat(), app::getHeightFloat(), 0.0f));
+        render::setView(glm::mat4(1.0f));
+        render::setModel(
+            glm::translate(glm::mat4(1000.0f), glm::vec3(32.0f, 32.0f, 0.0f)) *
+            glm::scale(glm::mat4(1.0f), glm::vec3(32.0f, 32.0f, 0.0f))
+        );
+
+        render::draw();
+        
+        render::unbind();
     }
 
     void release() {

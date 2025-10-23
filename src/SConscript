@@ -8,6 +8,7 @@ env["source_files"] += [
     source("main.cpp"),
     source("app.cpp"),
     source("input.cpp"),
+    source("render.cpp"),
     source("game.cpp")
 ]
 
