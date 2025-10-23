@@ -55,6 +55,12 @@ env = Environment(
         "lib"
     ],
     LIBS=[
+        'SDL2main.lib',
+        'SDL2.lib',
+        'SDL2_image.lib',
+        'SDL2_ttf.lib',
+        'opengl32.lib',
+        'glew32.lib',
         'kernel32.lib',
         'user32.lib',
         'gdi32.lib',

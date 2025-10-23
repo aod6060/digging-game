@@ -7,3 +7,7 @@ def source(file):
 env["source_files"] += [
     source("main.cpp")
 ]
+
+
+# imgui module
+SConscript("#src/imgui/SConscript", exports="env")
