@@ -5,7 +5,9 @@ def source(file):
     return "#/src/" + file
 
 env["source_files"] += [
-    source("main.cpp")
+    source("main.cpp"),
+    source("app.cpp"),
+    source("game.cpp")
 ]
 
 

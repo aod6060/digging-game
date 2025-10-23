@@ -1,8 +1,16 @@
-#include <iostream>
+#include "game.hpp"
+#include "sys.hpp"
 
 
 int main(int argc, char** argv) {
-    std::cout << "Hello, World\n";
+
+    app::Config config;
+
+    game::setup(&config);
+
+    app::init(&config);
+    app::update();
+    app::release();
     
     return 0;
 }
