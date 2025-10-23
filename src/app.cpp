@@ -34,6 +34,9 @@ namespace app {
         g_context = SDL_GL_CreateContext(g_window);
         glewInit();
 
+        // Initing input
+        input::init();
+
         // Call game init function
         if(g_config->initCB) {
             g_config->initCB();
@@ -59,6 +62,8 @@ namespace app {
                     app::exit();
                 }
 
+                input::handleEvent(&event);
+
                 if(g_config->handleEventCB) {
                     g_config->handleEventCB(&event);
                 }
@@ -74,6 +79,8 @@ namespace app {
                 g_config->renderCB();
             }
 
+            input::update();
+
             // Swaping window
             SDL_GL_SwapWindow(g_window);
         }
@@ -85,6 +92,8 @@ namespace app {
             g_config->releaseCB();
         }
 
+        input::release();
+        
         SDL_GL_DeleteContext(g_context);
         SDL_DestroyWindow(g_window);
         SDL_Quit();

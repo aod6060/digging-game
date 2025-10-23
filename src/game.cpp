@@ -1,7 +1,11 @@
 #include "game.hpp"
+#include "sys.hpp"
 
 
 namespace game {
+
+    int test = 0;
+
     void init() {
 
     }
@@ -11,7 +15,12 @@ namespace game {
     }
 
     void update(float delta) {
-        std::cout << "Delta: " << delta << "\n";
+        //std::cout << "Delta: " << delta << "\n";
+
+        if(input::isKeyReleasedOnce(input::Keyboard::KB_LEFT)) {
+            std::cout << test << "> Left Key State\n";
+            test += 1;
+        }
     }
 
     void render() {
