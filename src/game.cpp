@@ -6,8 +6,10 @@
 namespace game {
 
     int test = 0;
+    bool flipped = false;
 
     void init() {
+        render::addTextureFromFile("player", "data/textures/Player.png");
 
     }
 
@@ -17,6 +19,10 @@ namespace game {
 
     void update(float delta) {
         //std::cout << "Delta: " << delta << "\n"
+
+        if(input::isKeyPressedOnce(input::Keyboard::KB_TAB)) {
+            flipped = !flipped;
+        }
     }
 
     void render() {
@@ -31,7 +37,15 @@ namespace game {
             glm::scale(glm::mat4(1.0f), glm::vec3(32.0f, 32.0f, 0.0f))
         );
 
-        render::draw();
+        render::setRenderMode(render::RenderMode::RENDER_MODE_WITH_TEXTURES);
+
+        render::enableAlphaBlend();
+
+        render::bindTexture(GL_TEXTURE0, "player");
+        render::draw((flipped) ? render::TextureFlip::TF_FLIPPED : render::TextureFlip::TF_NORMAL);
+        render::unbindTexture(GL_TEXTURE0);
+
+        render::disableAlphaBlend();
         
         render::unbind();
     }

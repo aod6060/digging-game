@@ -332,16 +332,36 @@ namespace input {
 
 // Render
 namespace render {
+    enum RenderMode {
+        RENDER_MODE_NO_TEXTURES = 0,
+        RENDER_MODE_WITH_TEXTURES
+    };
+
+    enum TextureFlip {
+        TF_NORMAL = 0,
+        TF_FLIPPED,
+        TF_MAX_SIZE
+    };
 
     void init();
     void release();
     void clear(const glm::vec4& color);
     void bind();
     void unbind();
+    
     void setProjection(const glm::mat4& m);
     void setView(const glm::mat4& m);
     void setModel(const glm::mat4& m);
-    void draw();
+    void setRenderMode(RenderMode renderMode);
+
+    void draw(TextureFlip textureFlip);
+
+    void addTextureFromFile(std::string name, std::string path);
+    void bindTexture(GLenum active, std::string name);
+    void unbindTexture(GLenum active);
+
+    void enableAlphaBlend();
+    void disableAlphaBlend();
 };
 
 #endif
