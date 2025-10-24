@@ -190,6 +190,19 @@ namespace render {
         glBindVertexArray(0);
     }
 
+    void draw(Buffer& vertices, Buffer& texCoords) {
+        glBindVertexArray(main_vertex_array);
+
+        vertices.bind();
+        glVertexAttribPointer(MAIN_VERTICES, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+        texCoords.bind();
+        glVertexAttribPointer(MAIN_TEXCOORD, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+        texCoords.unbind();
+        
+        glDrawArrays(GL_TRIANGLES, 0, vertices.count() / 3);
+
+        glBindVertexArray(0);
+    }
 
     // Texture Manager
     void addTextureFromFile(std::string name, std::string path) {
@@ -243,6 +256,71 @@ namespace render {
     }
 
 
+    // Buffer
+    void Buffer::clear() {
+        list.clear();
+    }
+
+    void Buffer::add(float x) {
+        list.push_back(x);
+    }
+
+    void Buffer::add(float x, float y) {
+        list.push_back(x);
+        list.push_back(y);
+    }
+
+    void Buffer::add(float x, float y, float z) {
+        list.push_back(x);
+        list.push_back(y);
+        list.push_back(z);
+    }
+
+    void Buffer::add(float x, float y, float z, float w) {
+        list.push_back(x);
+        list.push_back(y);
+        list.push_back(z);
+        list.push_back(w);
+    }
+
+
+    void Buffer::init() {
+        glGenBuffers(1, &this->id);
+    }
+
+    void Buffer::release() {
+        glDeleteBuffers(1, &this->id);
+    }
+
+    void Buffer::update() {
+        this->bind();
+        glBufferData(GL_ARRAY_BUFFER, this->dataSize(), list.data(), GL_DYNAMIC_DRAW);
+        this->unbind();
+    }
+
+
+    void Buffer::bind() {
+        glBindBuffer(GL_ARRAY_BUFFER, this->id);
+    }
+
+    void Buffer::unbind() {
+        glBindBuffer(GL_ARRAY_BUFFER, 0);
+    }
+
+
+    uint32_t Buffer::typeSize() {
+        return sizeof(float);
+    }
+
+    uint32_t Buffer::count() {
+        return list.size();
+    }
+
+    uint32_t Buffer::dataSize() {
+        return typeSize() * count();
+    }
+
+    
     // Internal render functions
     static uint32_t create_shader(GLenum type, std::string path) {
         uint32_t temp = glCreateShader(type);

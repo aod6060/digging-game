@@ -8,6 +8,7 @@ namespace game {
     int test = 0;
     bool flipped = false;
 
+    
     void init() {
         render::addTextureFromFile("player", "data/textures/Player.png");
 
@@ -27,7 +28,7 @@ namespace game {
 
     void render() {
 
-        render::clear(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+        render::clear(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f));
         render::bind();
 
         render::setProjection(glm::ortho(0.0f, app::getWidthFloat(), app::getHeightFloat(), 0.0f));
@@ -46,7 +47,7 @@ namespace game {
         render::unbindTexture(GL_TEXTURE0);
 
         render::disableAlphaBlend();
-        
+
         render::unbind();
     }
 

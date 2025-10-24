@@ -343,6 +343,28 @@ namespace render {
         TF_MAX_SIZE
     };
 
+    struct Buffer {
+        std::vector<float> list;
+        uint32_t id = 0;
+
+        void clear();
+        void add(float x);
+        void add(float x, float y);
+        void add(float x, float y, float z);
+        void add(float x, float y, float z, float w);
+
+        void init();
+        void release();
+        void update();
+
+        void bind();
+        void unbind();
+
+        uint32_t typeSize();
+        uint32_t count();
+        uint32_t dataSize();
+    };
+
     void init();
     void release();
     void clear(const glm::vec4& color);
@@ -356,6 +378,8 @@ namespace render {
 
     void draw(TextureFlip textureFlip);
 
+    void draw(Buffer& vertices, Buffer& texCoords);
+    
     void addTextureFromFile(std::string name, std::string path);
     void bindTexture(GLenum active, std::string name);
     void unbindTexture(GLenum active);
